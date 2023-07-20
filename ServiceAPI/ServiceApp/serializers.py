@@ -1,0 +1,12 @@
+from rest_framework import serializers
+from ServiceApp.models import TypeService, Customer
+
+class TypeServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypeService
+        fields = ('ServiceId', 'ServiceName')
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ('CustomerId', 'CustomerName', 'CustomerPhone', 'CustomerCar', 'time_create')
