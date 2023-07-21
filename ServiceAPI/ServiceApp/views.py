@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
+from django.core.files.storage import default_storage
 
 from ServiceApp.models import TypeService, Customer
 from ServiceApp.serializers import TypeServiceSerializer, CustomerSerializer
@@ -25,6 +26,7 @@ def TypeServiceApi(request, pk=0):
     elif request.method == 'PUT':
         typeservice_data = JSONParser().parse(request)
         typeservice = TypeService.objects.get(ServiceId=typeservice_data['ServiceId'])
+        typeservice_data['ServiceFile'] = typeservice.ServiceFile
         # ServiceId=typeservice_data['ServiceId'] - нужно указывать ServiceId в запросе
         # ServiceId=pk - нужно указывать ServiceId в URL
         typeservice_serializer = TypeServiceSerializer(typeservice, data=typeservice_data)
@@ -62,6 +64,7 @@ def CustomerApi(request, pk=0):
         # CustomerId=customer_data['ServiceId'] - нужно указывать CustomerId в запросе
         # CustomerId=pk - нужно указывать ServiceId в URL
         customer_serializer = CustomerSerializer(customer, data=customer_data)
+        print(customer_serializer)
         if customer_serializer.is_valid():
             customer_serializer.save()
             return JsonResponse('Update Successfully', safe=False)
@@ -73,6 +76,17 @@ def CustomerApi(request, pk=0):
             return JsonResponse('Object does not exists', safe=False)
         customer.delete()
         return JsonResponse('Deleted Successfully', safe=False)
+
+@csrf_exempt
+def SaveFile(request, pk):
+    file = request.FILES['file']
+    file_name = default_storage.save(file.name, file)
+    typeservice = TypeService.objects.get(ServiceId=pk)
+    typeservice_data = {'ServiceId': pk, 'ServiceName': typeservice.ServiceName, 'ServiceFile': file_name}
+    typeservice_serializer = TypeServiceSerializer(typeservice, data=typeservice_data)
+    if typeservice_serializer.is_valid():
+        typeservice_serializer.save()
+    return JsonResponse(file_name, safe=False)
 
 def index(request):
     typeservice = TypeService.objects.all()
