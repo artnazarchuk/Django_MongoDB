@@ -73,3 +73,8 @@ def CustomerApi(request, pk=0):
             return JsonResponse('Object does not exists', safe=False)
         customer.delete()
         return JsonResponse('Deleted Successfully', safe=False)
+
+def index(request):
+    typeservice = TypeService.objects.all()
+    return render(request, 'ServiceApp/index.html', {'title': 'Главная страница', 'service': typeservice})
+

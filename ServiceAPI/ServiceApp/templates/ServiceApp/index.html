@@ -1,0 +1,25 @@
+
+{% extends 'ServiceApp/base.html' %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="category">
+        {% if service %}
+            {% for el in service %}
+                <div class="image">
+                    <a href="#" class="image_a">
+                        <img src="static/image/BMW.jpg" alt="Картинка">
+                        <p class="card_text">{{ el.ServiceName }}</p>
+                    </a>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>Данных услуг нет</h1>
+        {% endif %}
+    </div>
+{% endblock %}
