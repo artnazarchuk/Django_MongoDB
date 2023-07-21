@@ -10,5 +10,4 @@ class Customer(models.Model):
     CustomerName = models.CharField(max_length=50)
     CustomerPhone = models.CharField(max_length=30)
     CustomerCar = models.CharField(max_length=30)
-    time_create = models.DateField()
-
+    time_create = models.DateTimeField(auto_now=True)
