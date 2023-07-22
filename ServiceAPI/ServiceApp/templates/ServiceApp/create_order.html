@@ -1,0 +1,18 @@
+{% extends 'ServiceApp/base.html' %}
+
+{% block title %}
+    Оформление заявки
+{% endblock %}
+
+{% block content %}
+    <div class="form_create text">
+        <h1>Оформить заявку</h1>
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.CustomerName }}
+            {{ form.CustomerPhone }}
+            {{ form.CustomerCar }}
+            <button type="submit" class="button">Добавить</button>
+        </form>
+    </div>
+{% endblock %}

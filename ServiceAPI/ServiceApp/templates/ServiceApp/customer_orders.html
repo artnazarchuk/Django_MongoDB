@@ -1,0 +1,31 @@
+{% extends 'ServiceApp/base.html' %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block content %}
+    <div class="category">
+        {% for el in customer_order %}
+            <div class="product">
+                    <p>Идентификатор: № {{ el.CustomerId}}</p>
+                    <p>Имя: {{ el.CustomerName }}</p>
+                    <p>Телефон: {{ el.CustomerPhone }}</p>
+                    <p>Автомобиль: {{ el.CustomerCar }}</p>
+                    <p>Дата добавления: {{ el.time_create }}</p>
+                    <p>Дата редактирования: {{ el.time_update }}</p>
+                    <div class="category">
+                        <form action="/{{el.CustomerId}}/delete" method="POST" class="form">
+                            {% csrf_token %}
+                            <button type="submit" class="button">Удалить</button>
+                        </form>
+                        <form action="/{{el.CustomerId}}/update" method="POST" class="form">
+                            {% csrf_token %}
+                            <button type="submit" class="button">Редактировать</button>
+                        </form>
+                    </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

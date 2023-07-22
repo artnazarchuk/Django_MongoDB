@@ -120,6 +120,7 @@ img {
 }
 
 .form {
+    margin: 10px;
     display: flex;
     flex-direction: column;
 }
@@ -176,12 +177,12 @@ img {
 }
 
 .product {
-    width: 280px;
+    width: 480px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    background: #99a0a31c;
+    background: #999fa363;
     margin: 30px;
 }
 

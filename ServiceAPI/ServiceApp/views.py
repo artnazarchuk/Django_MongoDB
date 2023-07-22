@@ -1,11 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.core.files.storage import default_storage
+from django.views.generic import UpdateView, DeleteView
 
 from ServiceApp.models import TypeService, Customer
 from ServiceApp.serializers import TypeServiceSerializer, CustomerSerializer
+from .form import CustomerModelForm
 
 # Create your views here.
 
@@ -82,6 +84,7 @@ def SaveFile(request, pk):
     file = request.FILES['file']
     file_name = default_storage.save(file.name, file)
     typeservice = TypeService.objects.get(ServiceId=pk)
+    print(typeservice)
     typeservice_data = {'ServiceId': pk, 'ServiceName': typeservice.ServiceName, 'ServiceFile': file_name}
     typeservice_serializer = TypeServiceSerializer(typeservice, data=typeservice_data)
     if typeservice_serializer.is_valid():
@@ -92,3 +95,34 @@ def index(request):
     typeservice = TypeService.objects.all()
     return render(request, 'ServiceApp/index.html', {'title': 'Главная страница', 'service': typeservice})
 
+def customer_orders(request):
+    customer = Customer.objects.all()
+    return render(request, 'ServiceApp/customer_orders.html', {'title': 'Заявки клиентов', 'customer_order': customer})
+
+def create_order(request):
+    form = CustomerModelForm()
+    if request.method == 'POST':
+        form = CustomerModelForm(request.POST)
+        if form.is_valid():
+            task = Customer(
+                CustomerName=form.cleaned_data['CustomerName'],
+                CustomerPhone=form.cleaned_data['CustomerPhone'],
+                CustomerCar=form.cleaned_data['CustomerCar'],
+            )
+            task.save()
+            return redirect('orders')
+
+    context = {
+        'form': form,
+    }
+    print(context)
+    return render(request, 'ServiceApp/create_order.html', context)
+
+class CustomerUpdateApi(UpdateView):
+    form_class = CustomerModelForm
+    model = Customer
+    template_name = 'ServiceApp/update_order.html'
+
+class CustomerDeleteApi(DeleteView):
+    model = Customer
+    success_url = '/customer_orders'
