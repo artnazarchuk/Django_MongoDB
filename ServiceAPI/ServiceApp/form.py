@@ -1,6 +1,6 @@
 from .models import Customer
 from django.forms import ModelForm, TextInput
-from django import forms
+from django.forms import models, fields, widgets, ValidationError
 
 class CustomerModelForm(ModelForm):
     class Meta:

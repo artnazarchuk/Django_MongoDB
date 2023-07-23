@@ -4,6 +4,8 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.core.files.storage import default_storage
 from django.views.generic import UpdateView, DeleteView
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 from ServiceApp.models import TypeService, Customer
 from ServiceApp.serializers import TypeServiceSerializer, CustomerSerializer
@@ -28,10 +30,11 @@ def TypeServiceApi(request, pk=0):
     elif request.method == 'PUT':
         typeservice_data = JSONParser().parse(request)
         typeservice = TypeService.objects.get(ServiceId=typeservice_data['ServiceId'])
-        typeservice_data['ServiceFile'] = typeservice.ServiceFile
+        # typeservice_data['ServiceFile'] = typeservice.ServiceFile
         # ServiceId=typeservice_data['ServiceId'] - нужно указывать ServiceId в запросе
         # ServiceId=pk - нужно указывать ServiceId в URL
         typeservice_serializer = TypeServiceSerializer(typeservice, data=typeservice_data)
+        print(typeservice_serializer)
         if typeservice_serializer.is_valid():
             typeservice_serializer.save()
             return JsonResponse('Update Successfully', safe=False)
@@ -64,7 +67,7 @@ def CustomerApi(request, pk=0):
         customer_data = JSONParser().parse(request)
         customer = Customer.objects.get(CustomerId=pk)
         # CustomerId=customer_data['ServiceId'] - нужно указывать CustomerId в запросе
-        # CustomerId=pk - нужно указывать ServiceId в URL
+        # CustomerId=pk - нужно указывать CustomerId в URL
         customer_serializer = CustomerSerializer(customer, data=customer_data)
         print(customer_serializer)
         if customer_serializer.is_valid():
@@ -104,24 +107,32 @@ def create_order(request):
     if request.method == 'POST':
         form = CustomerModelForm(request.POST)
         if form.is_valid():
-            task = Customer(
+            order = Customer(
                 CustomerName=form.cleaned_data['CustomerName'],
                 CustomerPhone=form.cleaned_data['CustomerPhone'],
                 CustomerCar=form.cleaned_data['CustomerCar'],
             )
-            task.save()
+            order.save()
+            messages.success(request, f'Your order create successfully')
             return redirect('orders')
-
     context = {
         'form': form,
     }
     print(context)
     return render(request, 'ServiceApp/create_order.html', context)
 
-class CustomerUpdateApi(UpdateView):
+class CustomerUpdateApi(SuccessMessageMixin, UpdateView):
     form_class = CustomerModelForm
     model = Customer
     template_name = 'ServiceApp/update_order.html'
+    success_message = "%(CustomerName)s was updated successfully"
+
+    def get_success_message(self, cleaned_data):
+        print(cleaned_data)
+        return self.success_message % dict(
+            cleaned_data,
+            CustomerName=self.object.CustomerName,
+        )
 
 class CustomerDeleteApi(DeleteView):
     model = Customer
