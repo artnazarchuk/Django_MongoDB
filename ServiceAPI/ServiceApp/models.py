@@ -4,7 +4,7 @@ from django.db import models
 class TypeService(models.Model):
     ServiceId = models.AutoField(primary_key=True)
     ServiceName = models.CharField(max_length=100)
-    ServiceFile = models.CharField(max_length=30, null=True)
+    ServiceFile = models.FileField(upload_to='')
 
 class Customer(models.Model):
     CustomerId = models.AutoField(primary_key=True)

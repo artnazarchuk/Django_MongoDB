@@ -6,7 +6,7 @@ import datetime
 def server_logs(string):
     with open('server_logs.txt', 'a', encoding='utf-8') as file:
         now = str(datetime.datetime.now())
-        string = f' {now} {string}'
+        string = f'# {now} {string}'
         print(string)
         file.write(string + '\n')
 

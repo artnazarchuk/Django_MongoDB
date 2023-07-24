@@ -1,0 +1,22 @@
+{% extends 'ServiceApp/base.html' %}
+
+{% block title %}
+    Новый сервис
+{% endblock %}
+
+{% block content %}
+    <div class="form_create text">
+        {% if messages %}
+            {% for message in messages %}
+                <h4 style="color: green">{{ message }}</h4>
+            {% endfor %}
+        {% endif %}
+        <h2>Создать новый сервис</h2>
+        <form method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.ServiceName }}
+            {{ form.ServiceFile }}
+            <button type="submit" class="button">Добавить сервис</button>
+        </form>
+    </div>
+{% endblock %}

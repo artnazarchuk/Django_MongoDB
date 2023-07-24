@@ -9,11 +9,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from ServiceApp.models import TypeService, Customer
 from ServiceApp.serializers import TypeServiceSerializer, CustomerSerializer
-from .form import CustomerModelForm
+from .form import CustomerModelForm, ServiceModelForm
 
 # Create your views here.
 
-# CRUD для TypeService
+# CRUD TypeService for Postman
 @csrf_exempt
 def TypeServiceApi(request, pk=0):
     if request.method == 'GET':
@@ -46,7 +46,7 @@ def TypeServiceApi(request, pk=0):
         typeservice.delete()
         return JsonResponse('Deleted Successfully', safe=False)
 
-# CRUD для Customer
+# CRUD Customer for Postman
 @csrf_exempt
 def CustomerApi(request, pk=0):
     if request.method == 'GET':
@@ -78,6 +78,7 @@ def CustomerApi(request, pk=0):
         customer.delete()
         return JsonResponse('Deleted Successfully', safe=False)
 
+# Add file for Postman
 @csrf_exempt
 def SaveFile(request, pk):
     file = request.FILES['file']
@@ -93,9 +94,16 @@ def index(request):
     typeservice = TypeService.objects.all()
     return render(request, 'ServiceApp/index.html', {'title': 'Главная страница', 'service': typeservice})
 
+class ServiceCreateApi(SuccessMessageMixin, CreateView):
+    form_class = ServiceModelForm
+    model = TypeService
+    template_name = 'ServiceApp/create_service.html'
+    success_url = '/'
+
 def customer_orders(request):
     customer = Customer.objects.all()
     return render(request, 'ServiceApp/customer_orders.html', {'title': 'Заявки клиентов', 'customer_order': customer})
+
 
 class CustomerCreateApi(SuccessMessageMixin, CreateView):
     form_class = CustomerModelForm
@@ -105,7 +113,13 @@ class CustomerCreateApi(SuccessMessageMixin, CreateView):
     # success_url = '/create_order'
     success_url = '/customer_orders'
 
+    def get_customer(self, request, pk):
+        customer = Customer.objects.get(pk=pk)
+        print(request.method)
+        print(customer)
+
     def get_success_message(self, cleaned_data):
+
         return self.success_message % dict(
             cleaned_data,
             CustomerName=self.object.CustomerName,
@@ -126,12 +140,12 @@ class CustomerUpdateApi(SuccessMessageMixin, UpdateView):
 
 class CustomerDeleteApi(SuccessMessageMixin, DeleteView):
     model = Customer
-    success_message = "%(CustomerName)s was deleted successfully."
+    success_message = "%(CustomerId)s was deleted successfully."
     success_url = '/customer_orders'
 
     def get_success_message(self, cleaned_data):
+
         return self.success_message % dict(
             cleaned_data,
-            CustomerName=self.object.CustomerName,
+            CustomerId=self.object.CustomerId,
         )
-
