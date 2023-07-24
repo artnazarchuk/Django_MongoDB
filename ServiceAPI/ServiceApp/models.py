@@ -13,7 +13,3 @@ class Customer(models.Model):
     CustomerCar = models.CharField(max_length=30)
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
-
-    def get_absolute_url(self):
-        return f'/{self.CustomerId}/update'
-
