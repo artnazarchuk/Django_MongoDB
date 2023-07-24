@@ -140,12 +140,12 @@ class CustomerUpdateApi(SuccessMessageMixin, UpdateView):
 
 class CustomerDeleteApi(SuccessMessageMixin, DeleteView):
     model = Customer
-    success_message = "%(CustomerId)s was deleted successfully."
+    success_message = "%(CustomerName)s was deleted successfully."
     success_url = '/customer_orders'
 
     def get_success_message(self, cleaned_data):
 
         return self.success_message % dict(
             cleaned_data,
-            CustomerId=self.object.CustomerId,
+            CustomerName=self.object.CustomerName,
         )

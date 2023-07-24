@@ -9,7 +9,7 @@
     <div class="category">
         {% if service %}
             {% for el in service %}
-                <div class="image">
+                <div class="image animate__animated animate__flipInY">
                     <a href="#" class="image_a">
                         <img src="static/image/{{ el.ServiceFile }}" alt="Картинка">
                         <p class="card_text">{{ el.ServiceName }}</p>

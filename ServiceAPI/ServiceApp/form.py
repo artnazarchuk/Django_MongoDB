@@ -1,5 +1,5 @@
 from .models import Customer, TypeService
-from django.forms import ModelForm, TextInput, FileField
+from django.forms import ModelForm, TextInput
 from django.forms import models, fields, widgets
 
 class CustomerModelForm(ModelForm):
