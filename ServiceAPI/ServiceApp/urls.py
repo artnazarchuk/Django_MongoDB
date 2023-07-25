@@ -5,11 +5,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    # For Services
     path('', views.index),
     path('create_service/', views.ServiceCreateApi.as_view(), name='create_service'),
-    path('<int:pk>/update', views.ServiceUpdateApi.as_view(), name='update_service'),
+    path('service/<int:pk>/update', views.ServiceUpdateApi.as_view(), name='update_service'),
     path('service/<int:pk>/delete', views.ServiceDeleteApi.as_view(), name='delete_service'),
 
+    # For Customers
     path('customer_orders/', views.customer_orders, name='orders'),
     path('create_order/', views.CustomerCreateApi.as_view(), name='create_order'),
     path('<int:pk>/update', views.CustomerUpdateApi.as_view(), name='update_order'),

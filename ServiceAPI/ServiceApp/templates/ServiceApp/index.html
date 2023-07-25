@@ -15,7 +15,7 @@
         {% if service %}
             {% for el in service %}
                 <div class="image animate__animated animate__flipInY">
-                    <a href="/{{el.ServiceId}}/update" class="image_a">
+                    <a href="service/{{el.ServiceId}}/update" class="image_a">
                         <img src="static/image/{{ el.ServiceFile }}" alt="Картинка">
                         <p class="card_text">{{ el.ServiceName }}</p>
                     </a>

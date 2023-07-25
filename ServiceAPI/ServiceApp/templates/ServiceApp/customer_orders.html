@@ -14,25 +14,23 @@
 
         {% for el in customer_order %}
             <div class="product">
-                    <p>Идентификатор: № {{ el.CustomerId}}</p>
-                    <p>Имя: {{ el.CustomerName }}</p>
-                    <p>Телефон: {{ el.CustomerPhone }}</p>
-                    <p>Автомобиль: {{ el.CustomerCar }}</p>
-                    <p>Дата добавления: {{ el.time_create }}</p>
-                    <p>Дата редактирования: {{ el.time_update }}</p>
-                    <div class="category">
-                        <form action="/{{el.CustomerId}}/delete" method="POST" class="form">
-                            {% csrf_token %}
-                            <button type="submit" class="button_delete">Удалить</button>
-                        </form>
-                        <span class="form">
-                            <a href="/{{el.CustomerId}}/update" class="button_a">
-                                <p>Редактировать</p>
-                            </a>
-                        </span>
-
-                    </div>
-
+                <p>Идентификатор: № {{ el.CustomerId}}</p>
+                <p>Имя: {{ el.CustomerName }}</p>
+                <p>Телефон: {{ el.CustomerPhone }}</p>
+                <p>Автомобиль: {{ el.CustomerCar }}</p>
+                <p>Дата добавления: {{ el.time_create }}</p>
+                <p>Дата редактирования: {{ el.time_update }}</p>
+                <div class="category">
+                    <form action="/{{el.CustomerId}}/delete" method="POST" class="form">
+                        {% csrf_token %}
+                        <button type="submit" class="button_delete">Удалить</button>
+                    </form>
+                    <span class="form">
+                        <a href="/{{el.CustomerId}}/update" class="button_a">
+                            <p>Редактировать</p>
+                        </a>
+                    </span>
+                </div>
             </div>
         {% endfor %}
     </div>

@@ -100,18 +100,18 @@ class ServiceCreateApi(SuccessMessageMixin, CreateView):
     template_name = 'ServiceApp/create_service.html'
     success_message = "%(ServiceName)s was create successfully"
     success_url = '/'
+    # success_url = '/create_service'
 
 class ServiceUpdateApi(SuccessMessageMixin, UpdateView):
     form_class = ServiceModelForm
     model = TypeService
     template_name = 'ServiceApp/update_service.html'
     success_message = "%(ServiceName)s was updated successfully"
-    success_url = '/'
-    # success_url = 'update'
+    # success_url = '/'
+    success_url = 'update'
+
 
 class ServiceDeleteApi(SuccessMessageMixin, DeleteView):
-    fields = ('ServiceId', 'ServiceName', 'ServiceFile')
-    print(fields)
     model = TypeService
     success_message = "%(ServiceName)s was deleted successfully."
     success_url = '/'
@@ -135,24 +135,12 @@ class CustomerCreateApi(SuccessMessageMixin, CreateView):
     # success_url = '/create_order'
     success_url = '/customer_orders'
 
-    # def get_success_message(self, cleaned_data):
-    #     return self.success_message % dict(
-    #         cleaned_data,
-    #         CustomerName=self.object.CustomerName,
-    #     )
-
 class CustomerUpdateApi(SuccessMessageMixin, UpdateView):
     form_class = CustomerModelForm
     model = Customer
     template_name = 'ServiceApp/update_order.html'
     success_message = "%(CustomerName)s was updated successfully"
     success_url = 'update'
-
-    # def get_success_message(self, cleaned_data):
-    #     return self.success_message % dict(
-    #         cleaned_data,
-    #         CustomerName=self.object.CustomerName,
-    #     )
 
 class CustomerDeleteApi(SuccessMessageMixin, DeleteView):
     model = Customer

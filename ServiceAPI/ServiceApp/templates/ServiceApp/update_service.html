@@ -19,7 +19,7 @@
             {{ form.ServiceFile }}
             <button type="submit" class="button">Редактировать</button>
         </form>
-        <form action="/service/ServiceId/delete" method="POST" class="form">
+        <form action="delete" method="POST" class="form">
                 {% csrf_token %}
                 <button type="submit" class="button_delete">Удалить сервис</button>
         </form>
