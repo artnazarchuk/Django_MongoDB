@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block content %}
+
+
     <div class="form_create text">
+
+
         {% if messages %}
             {% for message in messages %}
                 <h4 style="color: green">{{ message }}</h4>
@@ -19,9 +23,27 @@
             {{ form.ServiceFile }}
             <button type="submit" class="button">Редактировать</button>
         </form>
+        <div class="category">
+            <div class="image animate__animated animate__flipInY">
+                <a href="service/{{el.ServiceId}}/update" class="image_a">
+                    <img src="" alt="Картинка" id="testData1">
+                    <p class="card_text" id="testData2">Название сервиса</p>
+                </a>
+            </div>
+        </div>
         <form action="delete" method="POST" class="form">
                 {% csrf_token %}
                 <button type="submit" class="button_delete">Удалить сервис</button>
         </form>
     </div>
+
+    <script>
+        "use strict";
+
+        let a = document.getElementsByTagName('a');
+        document.getElementById("testData1").src = a[6].pathname;
+
+        let input = document.getElementsByTagName('input');
+        document.getElementById("testData2").innerText = input[2].value
+    </script>
 {% endblock %}
