@@ -23,12 +23,14 @@
                     <div class="category">
                         <form action="/{{el.CustomerId}}/delete" method="POST" class="form">
                             {% csrf_token %}
-                            <button type="submit" class="button">Удалить</button>
+                            <button type="submit" class="button_delete">Удалить</button>
                         </form>
-                        <form action="/{{el.CustomerId}}/update" method="POST" class="form">
-                            {% csrf_token %}
-                            <button type="submit" class="button">Редактировать</button>
-                        </form>
+                        <span class="form">
+                            <a href="/{{el.CustomerId}}/update" class="button_a">
+                                <p>Редактировать</p>
+                            </a>
+                        </span>
+
                     </div>
 
             </div>

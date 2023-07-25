@@ -5,16 +5,20 @@
 {% endblock %}
 
 {% block content %}
-
+    {% if messages %}
+        {% for message in messages %}
+            <h4 style="color: green">{{ message }}</h4>
+        {% endfor %}
+    {% endif %}
     <div class="category">
+
         {% if service %}
             {% for el in service %}
                 <div class="image animate__animated animate__flipInY">
-                    <a href="#" class="image_a">
+                    <a href="/{{el.ServiceId}}/update" class="image_a">
                         <img src="static/image/{{ el.ServiceFile }}" alt="Картинка">
                         <p class="card_text">{{ el.ServiceName }}</p>
                     </a>
-
                 </div>
             {% endfor %}
         {% else %}

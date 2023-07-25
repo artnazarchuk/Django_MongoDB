@@ -8,6 +8,62 @@ body {
     display: none;
 }
 
+#id_ServiceFile {
+    display: none;
+}
+
+.add_file_bottom {
+    background: #198754;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: white;
+    padding: 0px 7px;
+    min-height: 40px;
+    font-weight: 700;
+    font-size: 13px;
+    margin: 10px 0px;
+    transition: .4s;
+    max-width: 142px;
+    border: none;
+    cursor: pointer;
+}
+.add_file_bottom:hover{
+    background: #107845;
+    transition: .4s;
+}
+
+.button_a {
+    background: #ff7b47;
+    border-radius: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: white;
+    padding: 5px 50px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 10px 0px;
+    transition: .4s;
+    max-width: 150px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button_a > p{
+    margin: 0px;
+}
+
+.button_a:hover{
+    background: #ee6a36;
+    transition: .4s;
+}
+
 /*-------ОБЁРТКА---------------------------------------------------*/
 .container {
     max-width: 1090px;
@@ -171,6 +227,30 @@ img {
     background: #ee6a36;
     transition: .4s;
 }
+
+.button_delete {
+    background: #cc2222;
+    border-radius: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: white;
+    padding: 5px 50px;
+    min-height: 50px;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 10px 0px;
+    transition: .4s;
+    max-width: 200px;
+    border: none;
+    cursor: pointer;
+}
+.button_delete:hover{
+    background: #992222;
+    transition: .4s;
+}
+
 
 .feedback__file {
   display: none;

@@ -1,0 +1,27 @@
+{% extends 'ServiceApp/base.html' %}
+
+{% block title %}
+    Редактировать сервис
+{% endblock %}
+
+{% block content %}
+    <div class="form_create text">
+        {% if messages %}
+            {% for message in messages %}
+                <h4 style="color: green">{{ message }}</h4>
+            {% endfor %}
+        {% endif %}
+        <h1>Редактировать сервис </h1>
+        <form method="post" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.ServiceName }}
+            <label for="id_ServiceFile" class="add_file_bottom" style="">Вабрать картинку</label>
+            {{ form.ServiceFile }}
+            <button type="submit" class="button">Редактировать</button>
+        </form>
+        <form action="/service/ServiceId/delete" method="POST" class="form">
+                {% csrf_token %}
+                <button type="submit" class="button_delete">Удалить сервис</button>
+        </form>
+    </div>
+{% endblock %}

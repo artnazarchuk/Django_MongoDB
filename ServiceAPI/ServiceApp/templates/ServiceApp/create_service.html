@@ -15,6 +15,7 @@
         <form method="post" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.ServiceName }}
+            <label for="id_ServiceFile" class="add_file_bottom" style="">Добавить картинку</label>
             {{ form.ServiceFile }}
             <button type="submit" class="button">Добавить сервис</button>
         </form>
