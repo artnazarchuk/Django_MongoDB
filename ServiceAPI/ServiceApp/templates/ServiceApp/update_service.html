@@ -5,27 +5,24 @@
 {% endblock %}
 
 {% block content %}
-
-
     <div class="form_create text">
-
-
         {% if messages %}
             {% for message in messages %}
                 <h4 style="color: green">{{ message }}</h4>
             {% endfor %}
         {% endif %}
         <h1>Редактировать сервис </h1>
-        <form method="post" class="form" enctype="multipart/form-data">
+        <form method="post" class="form" enctype="multipart/form-data" id="form_update">
             {% csrf_token %}
             {{ form.ServiceName }}
-            <label for="id_ServiceFile" class="add_file_bottom" style="">Вабрать картинку</label>
+            <!-- for="testData1" чтобы небыло ошибки в коде -->
+            <label for="testData1" class="add_file_bottom" id="save_file" style="">Вабрать картинку</label>
             {{ form.ServiceFile }}
             <button type="submit" class="button">Редактировать</button>
         </form>
         <div class="category">
             <div class="image animate__animated animate__flipInY">
-                <a href="service/{{el.ServiceId}}/update" class="image_a">
+                <a href="update" class="image_a">
                     <img src="" alt="Картинка" id="testData1">
                     <p class="card_text" id="testData2">Название сервиса</p>
                 </a>
@@ -40,10 +37,22 @@
     <script>
         "use strict";
 
+        // для отображения картинки перепрописываем img src=""
         let a = document.getElementsByTagName('a');
         document.getElementById("testData1").src = a[6].pathname;
 
+        // прописываем в тег p id="testData2" название сервиса из {{ form.ServiceName }}
         let input = document.getElementsByTagName('input');
         document.getElementById("testData2").innerText = input[2].value
+
+        // В label c id="save_file" перепрописываем for="testData1"
+        document.getElementById("save_file").htmlFor = input[3].id
+
+        // уборка лишнего текста из формы
+        let form = document.querySelectorAll(".form");
+        form[0].childNodes[8].nodeValue = ''
+        form[0].childNodes[11].nodeValue = ''
+        form[0].childNodes[9].innerHTML = ''
     </script>
+
 {% endblock %}
