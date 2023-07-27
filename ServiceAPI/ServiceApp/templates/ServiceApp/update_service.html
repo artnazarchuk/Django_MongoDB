@@ -16,7 +16,7 @@
             {% csrf_token %}
             {{ form.ServiceName }}
             <!-- for="testData1" чтобы небыло ошибки в коде -->
-            <label for="testData1" class="add_file_bottom" id="save_file" style="">Вабрать картинку</label>
+            <label for="id_ServiceFile" class="add_file_bottom" id="save_file" style="">Вабрать картинку</label>
             {{ form.ServiceFile }}
             <button type="submit" class="button">Редактировать</button>
 
@@ -25,10 +25,10 @@
             <button onclick="select_file()" class="add_file_bottom">Предпросмотр</button>
         </div>
         <div class="category">
-            <div class="image animate__animated animate__flipInX">
-                <a href="update" class="image_a">
-                    <img src="" alt="Картинка" id="testData1">
-                    <p class="card_text" id="testData2">Название сервиса</p>
+            <div class="image animate__animated animate__flipInX" id="div_rotate" style="opacity: 1">
+                <a href="#" class="image_a">
+                    <img src="" alt="Картинка" id="id_image">
+                    <p class="card_text" id="service_name">Название сервиса</p>
                 </a>
             </div>
         </div>
@@ -41,42 +41,46 @@
     <script>
         "use strict";
 
-        // для отображения картинки перепрописываем img src=""
-        let a = document.getElementsByTagName('a');
-        document.getElementById("testData1").src = a[6].pathname;
-
-        // прописываем в тег p id="testData2" название сервиса из {{ form.ServiceName }}
-        let input = document.getElementsByTagName('input');
-        document.getElementById("testData2").innerText = input[2].value
-
-        // В label c id="save_file" перепрописываем for="testData1"
-        document.getElementById("save_file").htmlFor = input[3].id
-
         // уборка лишнего текста из формы
-        let form = document.querySelectorAll(".form");
-        form[0].childNodes[8].nodeValue = '';
-
-        form[0].childNodes[11].nodeValue = '';
-        form[0].childNodes[9].innerHTML = '';
+        let form = document.querySelectorAll(".form")
+        form[0].childNodes[8].nodeValue = ''
+        form[0].childNodes[11].nodeValue = ''
+        form[0].childNodes[9].innerHTML = ''
 
         function select_file() {
-            let form = document.querySelectorAll("#id_ServiceFile");
+            let form = document.querySelectorAll("#id_ServiceFile")
             if (form[0].files[0] === undefined) {
-                console.log('картинка не выбрана');
+                console.log('картинка не выбрана')
             } else {
-                let form = document.querySelectorAll("#id_ServiceFile");
                 let file_name = form[0].files[0].name;
-                let img = document.getElementsByTagName('img');
+                let img = document.getElementsByTagName('img')
                 img[0].attributes.src.nodeValue = '/ServiceApp/static/image/' + file_name;
-                let name_service = document.querySelectorAll("#id_ServiceName");
-                let name_service2 = document.querySelectorAll("#testData2");
-                name_service2[0].innerHTML = name_service[0].value;
-                let image = document.querySelectorAll(".image");
-                image[0].attributes[0].nodeValue = image[0].attributes[0].nodeValue + ' animate__animated animate__flipInY';
+
+                let name_service = document.querySelectorAll("#id_ServiceName")
+                let name_service2 = document.querySelectorAll("#service_name")
+                name_service2[0].innerHTML = name_service[0].value
+
+                let div_rotate = document.querySelector('div[id="div_rotate"]')
+                if (div_rotate.className === 'image animate__animated animate__flipInX') {
+                    div_rotate.className = 'image animate__animated animate__flipInY'
+                } else {
+                    div_rotate.className = 'image animate__animated animate__flipInX'
+                }
             }
         }
-        let image = document.querySelectorAll(".image");
-        console.log(image[0].attributes[0].nodeValue + ' dfdsf');
+
+        let img_src = document.querySelectorAll('img[id="id_image"]')
+        let a = document.querySelectorAll('a')
+        img_src[0].attributes[0].nodeValue = a[6].attributes.href.nodeValue
+
+        let div_rotate = document.querySelector('div[id="div_rotate"]')
+        div_rotate.addEventListener("click", function () {
+            if (div_rotate.className === 'image animate__animated animate__flipInX') {
+                div_rotate.className = 'image animate__animated animate__flipInY'
+            } else {
+                div_rotate.className = 'image animate__animated animate__flipInX'
+            }
+        })
     </script>
 
 {% endblock %}
