@@ -19,9 +19,13 @@
             <label for="testData1" class="add_file_bottom" id="save_file" style="">Вабрать картинку</label>
             {{ form.ServiceFile }}
             <button type="submit" class="button">Редактировать</button>
+
         </form>
+        <div class="form">
+            <button onclick="select_file()" class="add_file_bottom">Предпросмотр</button>
+        </div>
         <div class="category">
-            <div class="image animate__animated animate__flipInY">
+            <div class="image animate__animated animate__flipInX">
                 <a href="update" class="image_a">
                     <img src="" alt="Картинка" id="testData1">
                     <p class="card_text" id="testData2">Название сервиса</p>
@@ -50,9 +54,29 @@
 
         // уборка лишнего текста из формы
         let form = document.querySelectorAll(".form");
-        form[0].childNodes[8].nodeValue = ''
-        form[0].childNodes[11].nodeValue = ''
-        form[0].childNodes[9].innerHTML = ''
+        form[0].childNodes[8].nodeValue = '';
+
+        form[0].childNodes[11].nodeValue = '';
+        form[0].childNodes[9].innerHTML = '';
+
+        function select_file() {
+            let form = document.querySelectorAll("#id_ServiceFile");
+            if (form[0].files[0] === undefined) {
+                console.log('картинка не выбрана');
+            } else {
+                let form = document.querySelectorAll("#id_ServiceFile");
+                let file_name = form[0].files[0].name;
+                let img = document.getElementsByTagName('img');
+                img[0].attributes.src.nodeValue = '/ServiceApp/static/image/' + file_name;
+                let name_service = document.querySelectorAll("#id_ServiceName");
+                let name_service2 = document.querySelectorAll("#testData2");
+                name_service2[0].innerHTML = name_service[0].value;
+                let image = document.querySelectorAll(".image");
+                image[0].attributes[0].nodeValue = image[0].attributes[0].nodeValue + ' animate__animated animate__flipInY';
+            }
+        }
+        let image = document.querySelectorAll(".image");
+        console.log(image[0].attributes[0].nodeValue + ' dfdsf');
     </script>
 
 {% endblock %}
