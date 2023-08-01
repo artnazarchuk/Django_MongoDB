@@ -33,13 +33,19 @@
         </header>
 
         <main class="content">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <h4 style="color: green; margin: 0px">{{ message }}</h4>
+                    {% endfor %}
+                {% else %}
+                    <h4 style="margin: 0px">&nbsp</h4>
+                {% endif %}
             {% block content %}{% endblock %}
         </main>
-
         <footer class="footer">
             © 2023&nbsp&nbsp IT&nbspOVERONE, Inc
         </footer>
     </div>
-
 </body>
 </html>

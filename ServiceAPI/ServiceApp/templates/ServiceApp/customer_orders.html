@@ -5,11 +5,6 @@
 {% endblock %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <h4 style="color: green">{{ message }}</h4>
-        {% endfor %}
-    {% endif %}
     <div class="category">
 
         {% for el in customer_order %}

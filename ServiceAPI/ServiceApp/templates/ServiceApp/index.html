@@ -5,13 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <h4 style="color: green">{{ message }}</h4>
-        {% endfor %}
-    {% endif %}
     <div class="category">
-
         {% if service %}
             {% for el in service %}
                 <div class="image animate__animated animate__flipInY">

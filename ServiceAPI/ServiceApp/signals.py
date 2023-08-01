@@ -1,7 +1,6 @@
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.core.signals import request_started, request_finished
-from django.core.handlers.wsgi import WSGIHandler
-from django.dispatch import receiver, Signal
+from django.dispatch import receiver
 from .models import Customer, TypeService
 import datetime
 
@@ -44,18 +43,3 @@ def post_delete_service(origin, **kwargs):
     print(f"ServiceName: {kwargs['instance'].ServiceName}")
     string_delete = f'Сервис под ID №: {origin.ServiceId} с именем: {origin.ServiceName}, удалён'
     server_logs(string_delete)
-
-# @receiver(pre_save, sender=TypeService)
-# def post_create_update_service_pre(using, **kwargs):
-#     print(using)
-#     print(kwargs)
-#
-# @receiver(request_started, sender=WSGIHandler)
-# def request_service_api_start(environ, **kwargs):
-#     print(environ)
-#     print(kwargs['sender'])
-#
-# @receiver(request_finished, sender=WSGIHandler)
-# def request_service_api_finish(**kwargs):
-#     print(kwargs)
-

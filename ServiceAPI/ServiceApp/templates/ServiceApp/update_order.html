@@ -6,11 +6,6 @@
 
 {% block content %}
     <div class="form_create text">
-        {% if messages %}
-            {% for message in messages %}
-                <h4 style="color: green">{{ message }}</h4>
-            {% endfor %}
-        {% endif %}
         <h1>Редактировать заявку </h1>
         <form method="post" class="form">
             {% csrf_token %}
