@@ -10,6 +10,7 @@
         <form method="post" class="form">
             {% csrf_token %}
             {{ form.CustomerName }}
+            {{ form.CustomerEmail }}
             {{ form.CustomerPhone }}
             {{ form.CustomerCar }}
             <button type="submit" class="button">Добавить</button>

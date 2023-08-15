@@ -1,7 +1,7 @@
-from django.db.models.signals import post_save, post_delete, pre_save
-from django.core.signals import request_started, request_finished
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import Customer, TypeService
+
 import datetime
 
 def server_logs(string):
@@ -17,6 +17,11 @@ def post_create_update_order(created, **kwargs):
     if created:
         string_created = f'Ордер заказчика под ID №: {instance.CustomerId} с именем: {instance.CustomerName}, добален'
         server_logs(string_created)
+
+        # email = instance.CustomerEmail
+        # username = instance.CustomerName
+        # send_email_customer_create(email, username)  # вызываем метод отправки почты
+        # send_email_customer_create.delay(email, username)
     else:
         string_update = f'Ордер заказчика под ID №: {instance.CustomerId} с именем: {instance.CustomerName}, ' \
                         f'редактирован'

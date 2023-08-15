@@ -5,8 +5,12 @@ from django.forms import models, fields, widgets
 class CustomerModelForm(ModelForm):
     class Meta:
         model = Customer
-        fields = ['CustomerName', 'CustomerPhone', 'CustomerCar']
+        fields = ['CustomerName', 'CustomerEmail', 'CustomerPhone', 'CustomerCar']
         widgets = {
+            'CustomerEmail': TextInput(attrs={
+                'class': 'text_input',
+                'placeholder': 'Введите вашу электронную почту'
+            }),
             'CustomerName': TextInput(attrs={
                 'class': 'text_input',
                 'placeholder': 'Введите ваше имя'

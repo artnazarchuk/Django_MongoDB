@@ -18,9 +18,9 @@ urlpatterns = [
     path('<int:pk>/delete', views.CustomerDeleteApi.as_view(), name='delete_order'),
 
     # For Postman
-    path('service/', views.TypeServiceApi),
-    path('service/<int:pk>', views.TypeServiceApi),
-    path('customer/', views.CustomerApi),
-    path('customer/<int:pk>', views.CustomerApi, name='delete'),
-    path('service/savefile/<int:pk>', views.SaveFile),
+    # path('service/', views.TypeServiceApi),
+    # path('service/<int:pk>', views.TypeServiceApi),
+    # path('customer/', views.CustomerApi),
+    # path('customer/<int:pk>', views.CustomerApi, name='delete'),
+    # path('service/savefile/<int:pk>', views.SaveFile),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

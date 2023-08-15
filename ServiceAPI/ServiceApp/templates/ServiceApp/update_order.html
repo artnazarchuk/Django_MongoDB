@@ -10,9 +10,14 @@
         <form method="post" class="form">
             {% csrf_token %}
             {{ form.CustomerName }}
+            {{ form.CustomerEmail }}
             {{ form.CustomerPhone }}
             {{ form.CustomerCar }}
             <button type="submit" class="button">Редактировать</button>
+        </form>
+        <form action="#" method="post" class="form">
+            {% csrf_token %}
+            <button type="submit" class="button">Исполнить</button>
         </form>
     </div>
 {% endblock %}

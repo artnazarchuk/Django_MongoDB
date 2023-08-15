@@ -9,4 +9,5 @@ class TypeServiceSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ('CustomerId', 'CustomerName', 'CustomerPhone', 'CustomerCar', 'time_create', 'time_update')
+        fields = ('CustomerId', 'CustomerName', 'CustomerEmail', 'CustomerPhone', 'CustomerCar', 'time_create',
+                  'time_update')

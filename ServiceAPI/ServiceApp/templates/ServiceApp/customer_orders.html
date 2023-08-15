@@ -12,11 +12,12 @@
                 <p>Идентификатор: № {{ el.CustomerId}}</p>
                 <p>Имя: {{ el.CustomerName }}</p>
                 <p>Телефон: {{ el.CustomerPhone }}</p>
+                <p>e-mail: {{ el.CustomerEmail }}</p>
                 <p>Автомобиль: {{ el.CustomerCar }}</p>
                 <p>Дата добавления: {{ el.time_create }}</p>
                 <p>Дата редактирования: {{ el.time_update }}</p>
                 <div class="category">
-                    <form action="/{{el.CustomerId}}/delete" method="POST" class="form">
+                    <form action="/{{el.CustomerId}}/delete" method="post" class="form">
                         {% csrf_token %}
                         <button type="submit" class="button_delete">Удалить</button>
                     </form>
