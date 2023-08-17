@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .models import Customer, TypeService
+from .tasks import send_email_customer_create, add, add2
 
 import datetime
 
@@ -18,10 +19,14 @@ def post_create_update_order(created, **kwargs):
         string_created = f'Ордер заказчика под ID №: {instance.CustomerId} с именем: {instance.CustomerName}, добален'
         server_logs(string_created)
 
-        # email = instance.CustomerEmail
-        # username = instance.CustomerName
-        # send_email_customer_create(email, username)  # вызываем метод отправки почты
-        # send_email_customer_create.delay(email, username)
+        # вызываем тестовые методы
+        add.delay(1, 10)
+        add2.delay(1, 100)
+
+        # вызываем метод отправки почты celery_tasks
+        email = instance.CustomerEmail
+        username = instance.CustomerName
+        send_email_customer_create.delay(email, username)
     else:
         string_update = f'Ордер заказчика под ID №: {instance.CustomerId} с именем: {instance.CustomerName}, ' \
                         f'редактирован'

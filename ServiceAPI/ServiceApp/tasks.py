@@ -1,22 +1,16 @@
 import time
 import smtplib
-from celery import Celery
-from .settings import EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+from ServiceAPI.settings import EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 from email.message import EmailMessage
+from celery import shared_task
 
-app = Celery(
-    'tasks',
-    broker='redis://localhost:6379/0',
-    backend='redis://localhost:6379/0'
-)
-
-@app.task()
+@shared_task()
 def add(x, y):
     print(x + y)
     return x + y
 
 
-@app.task()
+@shared_task()
 def add2(x, y):
     print(x + y)
     time.sleep(5)
@@ -30,23 +24,15 @@ def get_email_customer_create(email_customer: str, username: str):
 
     email.set_content(
         '<div>'
-        '<h1 style="color: red;">Здравствуйте, ваша заявка в обработке 😊</h1>'
+        f'<h1 style="color: green;">Здравствуйте {username}, ваша заявка в обработке 😊</h1>'
         '</div>',
         subtype='html'
     )
-    print(email_customer)
-    print(username)
     return email
 
-@app.task
+@shared_task()
 def send_email_customer_create(email_customer: str, username: str):
     email = get_email_customer_create(email_customer, username)
     with smtplib.SMTP_SSL(EMAIL_HOST, EMAIL_PORT) as server:
         server.login(EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
         server.send_message(email)
-
-    # return {
-    #     "status": 200,
-    #     "data": "Письмо отправлено",
-    #     "details": None
-    # }

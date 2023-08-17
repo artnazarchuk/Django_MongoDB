@@ -1,0 +1,2 @@
+# celery -A ServiceAPI worker --loglevel=info -P eventlet
+# celery -A ServiceAPI flower --port-5001
